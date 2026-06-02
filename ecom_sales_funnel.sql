@@ -1,10 +1,4 @@
-SELECT  FROM `sales-funnnel-analysis.sql_practice.user_events` LIMIT 1000
-
-SELECT *
-FROM `sales-funnnel-analysis.sql_practice.user_events` 
-LIMIT 5;
 -- define sales funnel and different stages
-
 WITH FUNNEL_STAGES AS(
   SELECT
     COUNT(DISTINCT CASE WHEN EVENT_TYPE = 'page_view' THEN USER_ID END) AS STAGE_1_VIEWS,
@@ -14,7 +8,6 @@ WITH FUNNEL_STAGES AS(
     COUNT(DISTINCT CASE WHEN EVENT_TYPE = 'purchase' THEN USER_ID END) AS STAGE_5_PURCHASE,
 FROM `sales-funnnel-analysis.sql_practice.user_events` 
 )
-
 SELECT *
 FROM FUNNEL_STAGES
 
@@ -39,7 +32,6 @@ SELECT
   STAGE_5_PURCHASE,
   CONCAT  (ROUND(STAGE_5_PURCHASE * 100 / STAGE_4_PAYMENT), '%') AS PAYMENT_TO_PURHCASE_RATE,
   CONCAT  (ROUND(STAGE_5_PURCHASE * 100 / STAGE_1_VIEWS), '%') AS OVERALL_CONVERSION_RATE,
-
 FROM FUNNEL_STAGES
 
 -- funnel by source
